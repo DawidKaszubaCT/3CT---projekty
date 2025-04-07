@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harem Aruni :3</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h2>Chat</h2>
+    <section class="chatContainer">
+        <section id="chatLog">
+            
+        </section>
+    </section>
+    <section class="messageContainer">
+      <input type="text" id="messageBox">
+      <button onclick="appendMessage()"id="send">OK</button>
+    </section>
+    <script>
+    
+    function appendMessage(){
+        var now = new Date();
+        var newMessage = document.createElement("p");
+        var messageBox = document.getElementById("messageBox");
+        var chatLog = document.getElementById("chatLog");
+        if(messageBox.value == "")
+    {
+        alert("Ale napisz coś ćwoku a nie puste wysyłasz");
+    }
+    else{
+        newMessage.innerHTML =  "(" + now.getHours() + ":" + now.getMinutes() + ")" + "Gal anonim: " + messageBox.value;
+        chatLog.appendChild(newMessage);
+    }
+    messageBox.value = "";
+    }
+
+
+    
+
+    </script>
+</body>
+</html>

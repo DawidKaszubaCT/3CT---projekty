@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+header{
+    width: 100vw;
+    height: 12vh;
+    background-color: crimson;
+    text-align: center;
+}
+aside{
+    background-color:brown;
+    width: 20vw;
+    height: 80vh;
+}
+main{
+    display: flex;
+    flex-direction: row;
+}
+#content{
+    background-color: indianred;
+    width: 80vw;
+    height: 80vh;
+}
+footer{
+    width: 100vw;
+    height: 8vh;
+    background-color: rgb(218, 46, 60);
+    text-align: center;
+}
+a{
+    font-size: 25px;
+    padding: 10px;
+}
+input{
+    color: black;
+}
+form{
+    padding: 20px;
+}

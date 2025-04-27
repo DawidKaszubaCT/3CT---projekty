@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    width: 100vw;
+    background-color: rgb(243, 243, 126);
+    height: 10vh;
+    text-align: center;
+}
+main{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 80vh;
+}
+aside{
+    height: 100%;
+    width: 10vw;
+    background-color: rgb(173, 218, 84);
+}
+#content{
+    width: 90vw;
+    background-color: rgb(231, 231, 136);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+footer{
+    width: 100vw;
+    height: 10vh;
+    background-color: rgba(172, 255, 47, 0.795);
+    text-align: center;
+}
+.bike{
+    display: flex;
+    width: 30%;
+    height: 66%;
+    flex-direction: column;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    align-items: center;
+}
+img{
+    width: 100%;
+    height: 90%;
+}

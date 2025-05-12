@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: gray;
+    width: 100vw;
+    height: 10vh;
+    text-align: center;
+}
+main{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 80vh;
+}
+.left{
+    width: 20vw;
+    height: 80vh;
+    background-color: rgb(119, 118, 118);
+}
+.right{
+    width: 80vw;
+    height: 80vh;
+    background-color: rgb(156, 154, 154);
+}
+footer{
+    width: 100vw;
+    height: 10vh;
+    background-color: gray;
+    text-align: center;
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motoserce 2025 - Rejestracja</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    /* Układ strony */
+    header {
+      background-color: gray;
+      width: 100vw;
+      height: 10vh;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    main {
+      display: flex;
+      flex-direction: row;
+      width: 100vw;
+      height: 80vh;
+    }
+    .middle {
+      width: 100vw;
+      height: 80vh;
+      background-color: rgb(156, 154, 154);
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    footer {
+      width: 100vw;
+      height: 10vh;
+      background-color: gray;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    form div {
+      margin-bottom: 10px;
+    }
+    form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    form input,
+    form select,
+    form button {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-top: 3px;
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Motoserce 2025 - Rejestracja</h1>
+  </header>
+  <main>
+    <div class="middle">
+      <form id="registrationForm" onsubmit="return handleSubmit(event)">
+        <div>
+          <label for="pesel">PESEL:</label>
+          <input type="text" id="pesel" name="pesel" maxlength="11" required>
+        </div>
+        <div id="peselError" class="error"></div>
+        <button type="button" onclick="validatePesel()">Sprawdź PESEL</button>
+  
+        <div id="additionalFields" class="hidden">
+          <div>
+            <label for="name">Imię i nazwisko:</label>
+            <input type="text" id="name" name="name" minlength="3" maxlength="50" required>
+          </div>
+          <div>
+            <label for="identifier">Nr Identyfikatora:</label>
+            <input type="text" id="identifier" name="identifier" readonly>
+          </div>
+          <div>
+            <label for="engine">Pojemność silnika:</label>
+            <input type="number" id="engine" name="engine" required>
+          </div>
+          <div>
+            <label for="oplata">Opłata:</label>
+            <select id="oplata" name="oplata" required>
+              <option value="">-- wybierz --</option>
+              <option value="tak">Tak</option>
+              <option value="nie">Nie</option>
+            </select>
+          </div>
+          <div>
+            <label for="mileage">Przebieg:</label>
+            <input type="number" id="mileage" name="mileage" required>
+          </div>
+          <div>
+            <label for="kategoria">Kategoria prawa jazdy:</label>
+            <input type="text" id="kategoria" name="kategoria" placeholder="A1, A2, A, B" required>
+          </div>
+          <button type="submit">Zarejestruj się</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Motoserce</p>
+  </footer>
+  
+  <script>
+    function parsePesel(pesel) {
+      if (pesel.length !== 11 || isNaN(pesel)) {
+        return null;
+      }
+      let year = parseInt(pesel.substr(0, 2), 10);
+      let month = parseInt(pesel.substr(2, 2), 10);
+      let day = parseInt(pesel.substr(4, 2), 10);
+      let century = null;
+
+      if (month >= 1 && month <= 12) {
+        century = 1900;
+      } else if (month >= 21 && month <= 32) {
+        century = 2000;
+        month -= 20;
+      } else if (month >= 41 && month <= 52) {
+        century = 2100;
+        month -= 40;
+      } else if (month >= 61 && month <= 72) {
+        century = 2200;
+        month -= 60;
+      } else if (month >= 81 && month <= 92) {
+        century = 1800;
+        month -= 80;
+      } else {
+        return null;
+      }
+      year = century + year;
+      return new Date(year, month - 1, day);
+    }
+
+    function getAge(birthDate) {
+      let today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
+
+    function validatePesel() {
+      const peselInput = document.getElementById('pesel');
+      const errorDiv = document.getElementById('peselError');
+      const pesel = peselInput.value.trim();
+      const birthDate = parsePesel(pesel);
+
+      if (!birthDate) {
+        errorDiv.textContent = "Podaj poprawny numer PESEL.";
+        document.getElementById('additionalFields').classList.add('hidden');
+        return;
+      }
+      const age = getAge(birthDate);
+      if (age < 18) {
+        errorDiv.textContent = "Rejestracja dostępna tylko dla osób 18+.";
+        document.getElementById('additionalFields').classList.add('hidden');
+      } else {
+        errorDiv.textContent = "";
+        const identifier = Math.floor(Math.random() * 10000) + 1;
+        document.getElementById('identifier').value = identifier;
+        document.getElementById('additionalFields').classList.remove('hidden');
+      }
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      alert("Rejestracja zakończona sukcesem!");
+      return false;
+    }
+  </script>
+</body>
+</html>
